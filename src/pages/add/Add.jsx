@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { addItemApi } from "../../services/AddApi";
+import { addItemApi } from "../../services/AllApi";
 import { toast,ToastContainer } from "react-toastify";
 
 const Add = () => {
@@ -29,9 +29,7 @@ const Add = () => {
 
     // call add api
     const res = await addItemApi(formData);
-    console.log("data: ", res);
     if (res?.data?.success) {
-      console.log("check: ", "hjk");
       toast.success("Items Added Successfully", {
         position: "top-center",
         autoClose: 5000,

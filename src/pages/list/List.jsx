@@ -1,7 +1,54 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { listItemApi, removeItemApi } from "../../services/AllApi.js";
+import { assets } from "../../assets/assets.js";
+import { toast } from "react-toastify";
 
 const List = () => {
+  const [allData, setAllData] = useState([]);
+
+  useEffect(() => {
+    fetchListItemApi();
+  }, []);
+
+  const fetchListItemApi = async () => {
+    const data = await listItemApi();
+    if (data?.data?.success) {
+      setAllData(data?.data?.data);
+    } else setAllData([]);
+  };
+
+  const removeItem = async (id) => {
+    const data = await removeItemApi(id);
+    console.log("check: ", data);
+    if (data?.data?.success) {
+      fetchListItemApi();
+      toast.success("Food Removed Successfully", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else
+    {
+      toast.error("Something went wrong. Please try again later.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return (
     <>
       <div className="px-10">
@@ -32,63 +79,44 @@ const List = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  100
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  100
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  100
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  100
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  100
-                </th>
-              </tr>
-              {/* {Object.entries(cartItems).length !== 0 ? (
-              allFoods.map(
-                (item, index) =>
-                  cartItems[item._id] > 0 && (
-                    <tr
-                      key={index}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              {allData.length > 0 ? (
+                allData.map((item, index) => (
+                  <tr
+                    key={index}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        <img
-                          src={item.image}
-                          alt="icon"
-                          className="w-[4rem] rounded-md"
-                        />
-                      </th>
-                      <td className="px-6 py-4">{1}</td>
-                      <td className="px-6 py-4">${1}</td>
-                      <td className="px-6 py-4">{10}</td>
-                      <td className="px-6 py-4">
-                        ${10}
-                      </td>
-                      <td
-                        className="px-6 py-4 font-semibold cursor-pointer"
-                       
-                      >
-                        x
-                      </td>
-                    </tr>
-                  )
-              )
-            ) : (
-              <tr>
-                <td colSpan="8" className="px-6 py-4 text-center">
-                  Empty cart
-                </td>
-              </tr>
-            )} */}
+                      <img
+                        src={`http://localhost:4000/images/${item.image}`}
+                        alt="icon"
+                        className="w-[3rem] rounded"
+                      />
+                    </th>
+                    <td className="px-6 py-4">{item.name}</td>
+                    <td className="px-6 py-4">{item.category}</td>
+                    <td className="px-6 py-4">${item.price}</td>
+                    <td
+                      className="px-6 py-4 cursor-pointer"
+                      onClick={() => removeItem(item._id)}
+                    >
+                      <img
+                        src={assets.cross_icon1}
+                        alt="icon"
+                        className="w-[0.7rem] rounded-md"
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="px-6 py-4 text-center">
+                    No Data Available
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

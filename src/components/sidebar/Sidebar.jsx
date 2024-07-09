@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [focus, setFocus] = useState("Add");
   const navigate = useNavigate();
+  const location = useLocation();
+  const [currentLocation, setCurrentLocation] = useState();
+  // const currentPath = location.pathname;
+
+  useEffect(() => {
+    console.log("first: ", location.pathname);
+    setCurrentLocation(location.pathname);
+  }, [focus]);
 
   return (
     <>
@@ -14,7 +22,7 @@ const Sidebar = () => {
           <div
             title="Add Items"
             className={`flex items-center gap-4 p-2 cursor-pointer border border-[#a9a9a9] border-r-0 ${
-              focus === "Add" ? "bg-[#fff0ed] border-red-500 " : ""
+              currentLocation === "/" ? "bg-[#fff0ed] border-red-500 " : ""
             } rounded-md rounded-r-none`}
             onClick={() => {
               navigate("/");
@@ -27,7 +35,7 @@ const Sidebar = () => {
           <div
             title="List Items"
             className={`flex items-center gap-4 p-2 cursor-pointer border border-[#a9a9a9] border-r-0 ${
-              focus === "List" ? "bg-[#fff0ed] border-red-500 " : ""
+              currentLocation === "/list" ? "bg-[#fff0ed] border-red-500 " : ""
             } rounded-md rounded-r-none`}
             onClick={() => {
               navigate("/list");
@@ -40,7 +48,9 @@ const Sidebar = () => {
           <div
             title="Orders items"
             className={`flex items-center gap-4 p-2 cursor-pointer border border-[#a9a9a9] border-r-0 ${
-              focus === "Orders" ? "bg-[#fff0ed] border-red-500 " : ""
+              currentLocation === "/orders"
+                ? "bg-[#fff0ed] border-red-500 "
+                : ""
             } rounded-md rounded-r-none`}
             onClick={() => {
               navigate("/orders");
