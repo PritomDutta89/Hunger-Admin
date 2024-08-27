@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { listItemApi, removeItemApi } from "../../services/AllApi.js";
 import { assets } from "../../assets/assets.js";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../services/helper.js";
 
 const List = () => {
   const [allData, setAllData] = useState([]);
@@ -89,7 +90,7 @@ const List = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
                       <img
-                        src={`http://localhost:4000/images/${item.image}`}
+                        src={`${BASE_URL}/images/${item.image}`}
                         alt="icon"
                         className="w-[3rem] rounded"
                       />

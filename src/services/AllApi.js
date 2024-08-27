@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import { BASE_URL } from "./helper";
 
 export async function addItemApi(data) {
   try {
-    const url = `http://localhost:4000/api/food/add`;
+    const url = `${BASE_URL}/api/food/add`;
     const res = await axios.post(url, data);
 
     return res;
@@ -14,7 +15,7 @@ export async function addItemApi(data) {
 
 export async function listItemApi() {
   try {
-    const url = `http://localhost:4000/api/food/list`;
+    const url = `${BASE_URL}/api/food/list`;
     const res = await axios.get(url);
 
     return res;
@@ -25,7 +26,7 @@ export async function listItemApi() {
 
 export async function removeItemApi(foodId) {
   try {
-    const url = `http://localhost:4000/api/food/remove`;
+    const url = `${BASE_URL}/api/food/remove`;
     const res = await axios.post(url, { _id: foodId });
 
     return res;
@@ -36,7 +37,7 @@ export async function removeItemApi(foodId) {
 
 export async function listAllItemApi(foodId) {
   try {
-    const url = `http://localhost:4000/api/order/list`;
+    const url = `${BASE_URL}/api/order/list`;
     const res = await axios.get(url);
 
     return res.data;
@@ -47,7 +48,7 @@ export async function listAllItemApi(foodId) {
 
 export async function statusUpdateApi(data, orderId) {
   try {
-    const url = `http://localhost:4000/api/order/status`;
+    const url = `${BASE_URL}/api/order/status`;
     const res = await axios.post(url, {
       orderId: orderId,
       status: data,
