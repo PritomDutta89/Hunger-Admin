@@ -20,7 +20,6 @@ const List = () => {
 
   const removeItem = async (id) => {
     const data = await removeItemApi(id);
-    console.log("check: ", data);
     if (data?.data?.success) {
       fetchListItemApi();
       toast.success("Food Removed Successfully", {

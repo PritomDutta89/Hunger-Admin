@@ -33,3 +33,28 @@ export async function removeItemApi(foodId) {
     console.log(error);
   }
 }
+
+export async function listAllItemApi(foodId) {
+  try {
+    const url = `http://localhost:4000/api/order/list`;
+    const res = await axios.get(url);
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function statusUpdateApi(data, orderId) {
+  try {
+    const url = `http://localhost:4000/api/order/status`;
+    const res = await axios.post(url, {
+      orderId: orderId,
+      status: data,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
