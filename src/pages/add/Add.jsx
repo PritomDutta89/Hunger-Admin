@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { addItemApi } from "../../services/AllApi";
-import { toast,ToastContainer } from "react-toastify";
+import { addItemApi, getImgUrlAPI } from "../../services/AllApi";
+import { toast, ToastContainer } from "react-toastify";
 
 const Add = () => {
   const [image, setImage] = useState(false);
@@ -11,24 +11,33 @@ const Add = () => {
     price: "",
     category: "Salad",
   });
+  const [imageUrl, setImageUrl] = useState("");
 
   const onChangeHandler = (event) => {
-    console.log("check2: ", event.target.name);
     setData((prv) => ({ ...prv, [event.target.name]: event.target.value }));
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("price", Number(data.price));
-    formData.append("category", data.category);
-    formData.append("image", image);
+    // const formData = new FormData();
+    // formData.append("name", data.name);
+    // formData.append("description", data.description);
+    // formData.append("price", Number(data.price));
+    // formData.append("category", data.category);
+    // formData.append("image", imageUrl);
+
+    const addData = {
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      category: data.category,
+      image: imageUrl,
+    };
 
     // call add api
-    const res = await addItemApi(formData);
+    const res = await addItemApi(addData);
+    console.log(res);
     if (res?.data?.success) {
       toast.success("Items Added Successfully", {
         position: "top-center",
@@ -48,9 +57,7 @@ const Add = () => {
         category: "Salad",
       });
       setImage(false);
-    }
-    else
-    {
+    } else {
       toast.warn("Please fill in all the mandatory fields.", {
         position: "top-center",
         autoClose: 5000,
@@ -62,6 +69,22 @@ const Add = () => {
         theme: "light",
       });
     }
+  };
+
+  const handleImageUpload = async (event) => {
+    setImage(event.target.files[0]);
+    const file = event.target.files[0];
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("upload_preset", "hunger-img"); // Replace 'your_upload_preset' with the actual name of your preset
+
+    const data = await getImgUrlAPI(formData);
+    setImageUrl(
+      data?.url
+        ? data?.url
+        : "https://www.istockphoto.com/photo/snack-junk-fast-food-on-table-in-restaurant-soup-sauce-ornament-grill-hamburger-gm1457979959-492655950?utm_source=pixabay&utm_medium=affiliate&utm_campaign=SRP_image_sponsored&utm_content=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Ffood%2F&utm_term=food"
+    );
   };
 
   return (
@@ -78,9 +101,6 @@ const Add = () => {
                   htmlFor="dropzone-file"
                   className="flex flex-col items-center justify-center w-fit p-[1rem] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
-                  {/* {image ? (
-                image.name
-              ) : ( */}
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg
                       className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
@@ -106,10 +126,10 @@ const Add = () => {
                     </p>
                     {image && <p className="mt-2">{image.name}</p>}
                   </div>
-                  {/* )} */}
+
                   <input
                     id="dropzone-file"
-                    onChange={(e) => setImage(e.target.files[0])}
+                    onChange={handleImageUpload}
                     type="file"
                     hidden
                     required
