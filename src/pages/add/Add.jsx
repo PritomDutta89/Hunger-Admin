@@ -20,13 +20,6 @@ const Add = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // const formData = new FormData();
-    // formData.append("name", data.name);
-    // formData.append("description", data.description);
-    // formData.append("price", Number(data.price));
-    // formData.append("category", data.category);
-    // formData.append("image", imageUrl);
-
     const addData = {
       name: data.name,
       description: data.description,
@@ -93,17 +86,17 @@ const Add = () => {
         <form onSubmit={onSubmitHandler}>
           <div className="flex flex-col gap-4 items-start justify-center mt-4 ml-6 w-full">
             <div className="flex flex-col items-start justify-center w-full">
-              <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <p className="block mb-2 text-sm font-medium text-gray-900">
                 Upload Image <span className="text-red-600">*</span>
               </p>
               <div className="">
                 <label
                   htmlFor="dropzone-file"
-                  className="flex flex-col items-center justify-center w-fit p-[1rem] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  className="flex flex-col items-center justify-center w-fit p-[1rem] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg
-                      className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                      className="w-8 h-8 mb-4 text-gray-500 "
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -117,11 +110,11 @@ const Add = () => {
                         d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                       />
                     </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <p className="mb-2 text-sm text-gray-500 ">
                       <span className="font-semibold">Click to upload</span> or
                       drag and drop
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-gray-500 ">
                       SVG, PNG, JPG or GIF (MAX. 800x400px)
                     </p>
                     {image && <p className="mt-2">{image.name}</p>}
@@ -141,7 +134,7 @@ const Add = () => {
             <div className="w-full">
               <label
                 htmlFor="first_name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 "
               >
                 Product Name <span className="text-red-600">*</span>
               </label>
@@ -150,7 +143,7 @@ const Add = () => {
                 id="first_name"
                 name="name"
                 value={data.name}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter Product Name"
                 onChange={onChangeHandler}
                 required
@@ -160,7 +153,7 @@ const Add = () => {
             <div className="w-full">
               <label
                 htmlFor="message"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Product Description <span className="text-red-600">*</span>
               </label>
@@ -169,7 +162,7 @@ const Add = () => {
                 rows="4"
                 name="description"
                 value={data.description}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Write content here..."
                 onChange={onChangeHandler}
                 required
@@ -180,7 +173,7 @@ const Add = () => {
               <div>
                 <label
                   htmlFor="countries"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Product Category <span className="text-red-600">*</span>
                 </label>
@@ -206,14 +199,14 @@ const Add = () => {
               <div className="w-full">
                 <label
                   htmlFor="Product Price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4"
+                  className="block mb-2 text-sm font-medium text-gray-900 mt-4"
                 >
                   Product Price <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="number"
                   id="Product Price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   name="price"
                   placeholder="$40"
                   value={data.price}
